@@ -60,20 +60,22 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of convolution neural networks based on [NVIDIA's paper](https://arxiv.org/abs/1604.07316). First, The input data, whose shape is `(160, 320, 3)`, is normalized in the model using a Keras lambda layer, and it is cropped by 70px of upper side and 25px of lower side. After that, the model contains CNN with 5x5 filter sizes and depths 24, 36, and 48. Also, the model is similar with previous CNN, but it repeats twice with 3x3 filter sizes and depths 64. These CNN consists MaxPooling of 2x2 filter sizes. Next, the model consists fully connected with 100, 50, 10 and 1. Additionally, I apply RELU activation functions on the model with CNN layers. You can see below:
+My model consists of convolution neural networks based on [NVIDIA's paper](https://arxiv.org/abs/1604.07316). First, The input data, whose shape is `(160, 320, 3)`, is normalized in the model using a Keras lambda layer, and it is cropped by 70px of upper side and 25px of lower side. After that, the model contains CNN with 5x5 filter sizes, stride 2, and depths 24, 36, and 48. Also, the model is similar with previous CNN, but it repeats twice with 3x3 filter sizes, stride 1, and depths 64. Next, the model consists fully connected with 100, 50, 10 and 1. Additionally, I apply RELU activation functions on the model with CNN layers. You can see below:
 
-|input: (160, 320, 3)|
+|input: 160x320x3|
 |:---:|
 |normalize: (x / 255.0) - 0.5|
 |crop: ((70,25), (0,0))|
-|conv: kernel: 5x5 depth: 24 activation: RELU|
-|max pooling: 2x2|
-|conv: kernel: 5x5 depth: 36 activation: RELU|
-|max pooling: 2x2|
-|conv: kernel: 5x5 depth: 48 activation: RELU|
-|max pooling: 2x2|
-|conv: kernel: 3x3 depth: 64 activation: RELU|
-|conv: kernel: 3x3 depth: 64 activation: RELU|
+|conv layer: 5x5x24, stride 2|
+|RELU|
+|conv layer: 5x5x36, stride 2|
+|RELU|
+|conv layer: 5x5x48, stride 2|
+|RELU|
+|conv layer: 3x3x64, stride 1|
+|RELU|
+|conv layer: 3x3x64, stride 1|
+|RELU|
 |flatten|
 |fully connected: 100|
 |fully connected: 50|
@@ -178,7 +180,7 @@ During the training, I cropped the image by 70px of upper side and 25px of lower
 | ![original][image9] | ![flipped][image12] |
 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 compared with 2, 8, and 10. I used an ADAM optimizer so that manually training the learning rate wasn't necessary. [here](https://github.com/fchollet/keras/blob/master/keras/optimizers.py#L401)
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. For this work, I used batch normalization that training and validation set were [normalized](https://github.com/GzuPark/CarND-Behavioral-Cloning-P3/blob/a9dd8dddbf3d8e058ef192150af0fe5d8e3c774e/model.py#L70) by [every batch size](https://github.com/GzuPark/CarND-Behavioral-Cloning-P3/blob/a9dd8dddbf3d8e058ef192150af0fe5d8e3c774e/model.py#L79). The ideal number of epochs was 5 compared with 2, 8, and 10. I used an ADAM optimizer so that manually training the learning rate wasn't necessary. [here](https://github.com/fchollet/keras/blob/master/keras/optimizers.py#L401)
 
 ### Conclusions and Future Directions
 
