@@ -39,14 +39,14 @@ The goals / steps of this project are the following:
 My project includes the following files:
 
 * `model.py` containing the script to create and train the model
-* `drive.py` for driving the car in autonomous mode
+* `drive.py` for driving the vehicle in autonomous mode
 * `model.h5` containing a trained convolution neural network
 * `writeup_report.md` summarizing the results
 * `assets.ipynb` creating reference images
 * `speed*.mp4` video when the vehicle drive autonomously each speed
 
 #### 2. Submission includes functional code
-Using the Udacity provided simulator and my drive.py file, and I set up a default value of `set_speed = 20` due to satisfy not too slow, and avoid leaving the road, the car can be driven autonomously around the track by executing:
+Using the Udacity provided simulator and my drive.py file, and I set up a default value of `set_speed = 20` due to satisfy not too slow, and avoid leaving the road, the vehicle can be driven autonomously around the track by executing:
 
 ```sh
 python drive.py model.h5
@@ -130,11 +130,11 @@ from sklearn.model_selection import train_test_split
 train, valid = train_test_split(lines, test_size=0.2)
 ```
 
-I found that my first model had huge gap of mean squared error between training set and validation set, and often go to out of the road when I run the simulator. This is because my model did not know how a car can recover toward a center of the road when it is located in biased position. I could solve this problem that I used left and right positioned images with forced steering parameters.
+I found that my first model had huge gap of mean squared error between training set and validation set, and often go to out of the road when I run the simulator. This is because my model did not know how a vehicle can recover toward a center of the road when it is located in biased position. I could solve this problem that I used left and right positioned images with forced steering parameters.
 
-And most of corners in the simulator were left-turns. These problem was occurred by insufficient data, so I have to create training data for solving problems. I will describe in [next section](#).
+And most of corners in the simulator were left-turns. These problem was occurred by insufficient data, so I have to create training data for solving problems. I will describe in [next section](https://github.com/GzuPark/CarND-Behavioral-Cloning-P3/blob/master/writeup_report.md#2-creation-of-the-training-set--training-process).
 
-The final step was to run the simulator to see how well the car was driving around track one. Depends on the max speed of a car show like below:
+The final step was to run the simulator to see how well the vehicle was driving around track one. Depends on the max speed of a vehicle show like below:
 
 | Speed 15            | Speed 20            | Speed 25            |
 |:-------------------:|:-------------------:|:-------------------:|
@@ -167,7 +167,7 @@ Also, to make a variety of data, I drove one lap with an opposite direction look
 | ![opposite direction][image11]  |
 |---------------------------------|
 
-After the collection process, I had 9497 number of data points. I then preprocessed this data by `generator()` function. (models.py 20-67)
+After the collection process, I had 9497 number of data points. I then preprocessed this data by `generator()` function. [models.py 20-67](https://github.com/GzuPark/CarND-Behavioral-Cloning-P3/blob/84b894a92164359f140066598d810ba69cba98b0/model.py#L20)
 
 I randomly shuffled the data set and put 20% of the data into a validation set.
 
